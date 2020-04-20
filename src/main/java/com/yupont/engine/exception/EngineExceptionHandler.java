@@ -8,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
  * @date 2020/4/16
  */
 @Slf4j
-public class EngineExceptionHandler<T> implements ExceptionHandler<T> {
+public class EngineExceptionHandler<T> implements ExceptionHandler<T>{
 
     @Override
     public void handleEventException(Throwable ex, long sequence, T event) {
@@ -25,4 +25,5 @@ public class EngineExceptionHandler<T> implements ExceptionHandler<T> {
     public void handleOnShutdownException(Throwable ex) {
         log.error("handler shutdown error:{}",ex);
     }
+
 }
