@@ -25,9 +25,9 @@ public class JobContext<T> {
     private String jobId;
 
     /**
-     * 任务参数
+     * 上下文传递参数
      */
-    private JSONObject context;
+    private JSONObject context = new JSONObject();
 
     /**
      * 业务参数
