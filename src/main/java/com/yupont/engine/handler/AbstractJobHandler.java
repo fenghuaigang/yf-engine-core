@@ -53,7 +53,7 @@ public abstract class AbstractJobHandler<T> implements JobHandler<T>{
      */
     protected void logStart(EngineLog engineLog){
         engineLog.startLog();
-        engineLog.logNoBr("<开始:{}>",getHandlerName());
+        engineLog.logNoBr("<START:{}>",getHandlerName());
     }
 
     /**
@@ -65,7 +65,7 @@ public abstract class AbstractJobHandler<T> implements JobHandler<T>{
      * @date 2020/2/14
      */
     protected void logEnd(EngineLog engineLog){
-        engineLog.logNoBr("<结束:{}>",getHandlerName());
+        engineLog.logNoBr("<END:{}>",getHandlerName());
         engineLog.flush();
     }
 
