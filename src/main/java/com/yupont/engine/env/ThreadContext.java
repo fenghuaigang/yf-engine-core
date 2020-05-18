@@ -19,7 +19,7 @@ public class ThreadContext {
             // 1、应用线程环境耗时操作主要集中在IO处理上，相反计算反而较少，线程池大小取cpu核数*2
             int availableProcessors = Runtime.getRuntime().availableProcessors();
             // 2、构造一个定长线程池，可控制线程最大并发数，超出的线程会在队列中
-            ThreadFactory namedThreadFactory = new ThreadFactoryBuilder().setNameFormat("common-actuator-pool").get();
+            ThreadFactory namedThreadFactory = new ThreadFactoryBuilder().setNameFormat("common-actuator-pool-%d").get();
             executorService = new ThreadPoolExecutor(availableProcessors, availableProcessors * 2, 0L, TimeUnit.MILLISECONDS,
                     new LinkedBlockingQueue<>(1024), namedThreadFactory, new ThreadPoolExecutor.AbortPolicy());
         }
