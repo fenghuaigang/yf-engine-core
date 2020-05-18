@@ -22,7 +22,7 @@ public interface EngineLog {
         BATCH
     }
 
-    /** 
+    /**
      *  设置日志模式
      * @methodName setLogType
      * @param logType 日志模式
@@ -31,10 +31,10 @@ public interface EngineLog {
      * @date 2020/3/6
      */
     void setLogType(LogType logType);
-    /** 
+    /**
      *  获取当前日志模式
      * @methodName getLogType
-     * @param 
+     * @param
      * @return 日志模式
      * @author fenghuaigang
      * @date 2020/3/6
@@ -51,10 +51,10 @@ public interface EngineLog {
      */
     void setLogName(String logName);
 
-    /** 
+    /**
      *  开始记录日志
      * @methodName startLog
-     * @param 
+     * @param
      * @return
      * @author fenghuaigang
      * @date 2020/3/6
@@ -72,7 +72,7 @@ public interface EngineLog {
     void endLog();
 
     /**
-     *  写入日志
+     *  写入日志，携带Br换行符
      * @methodName log
      * @param appendLogPattern 日志内容 格式例如 "aaa {} bbb {} ccc"
      * @param appendLogArguments  日志占位符对应传递参数 格式例如 "111, true"
@@ -81,7 +81,16 @@ public interface EngineLog {
      * @date 2020/3/6
      */
     void log(String appendLogPattern, Object... appendLogArguments);
-
+    /**
+     *  写入日志，不携带Br换行符
+     * @methodName logNoBr
+     * @param appendLogPattern
+     * @param appendLogArguments
+     * @return
+     * @author fenghuaigang
+     * @date 2020/5/18
+     */
+    void logNoBr(String appendLogPattern, Object... appendLogArguments);
     /**
      *  刷新缓存，写入目标地址
      * @methodName flush
