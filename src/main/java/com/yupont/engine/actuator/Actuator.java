@@ -10,78 +10,114 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * 启动器
+ *
  * @author fenghuaigang
  * @date 2020/4/13
  */
 public interface Actuator<T> {
 
-    /** 
-     *  启动执行器
-     * @methodName run       
-     * @param 
+    /**
+     * 启动执行器
+     *
+     * @param
      * @return
-     * @author fenghuaigang 
-     * @date 2020/4/14 
+     * @methodName run
+     * @author fenghuaigang
+     * @date 2020/4/14
      */
     void start();
-    /** 
-     *  停止任务,循环阻塞等待直至所有handler处理完毕
-     * @methodName shutdown
-     * @param 
+
+    /**
+     * 当前线程停止任务,阻塞等待直至所有handler处理完毕
+     *
+     * @param
      * @return
-     * @author fenghuaigang 
-     * @date 2020/4/14 
+     * @methodName shutdown
+     * @author fenghuaigang
+     * @date 2020/4/14
      */
     void shutdown();
 
     /**
-     *  停止任务，指定等待时间
-     * @methodName shutdown
-     * @param timeout
-     * @param timeUnit
+     * 当前线程停止任务，阻塞指定等待时间
+     *
+     * @param timeout 等待时间
+     * @param timeUnit 时间单位
      * @return
+     * @methodName shutdown
      * @author fenghuaigang
      * @date 2020/4/16
      */
     void shutdown(long timeout, TimeUnit timeUnit);
 
-    /** 
-     *  添加要处理的业务数据
-     * @methodName addContext
+    /**
+     * 停止任务。异步方式停止Actuator，等待内部处理事件完毕
+     *
+     * @param
+     * @return
+     * @methodName shutdownAsync
+     * @author fenghuaigang
+     * @date 2020/5/21
+     */
+    default void shutdownAsync() {
+        new Thread(()->shutdown()).start();
+    }
+
+
+    /**
+     * 停止任务。异步方式停止Actuator，指定等待时间
+     * @param timeout 等待时间
+     * @param timeUnit 时间单位
+     * @return
+     * @methodName shutdownAsync
+     * @author fenghuaigang
+     * @date 2020/5/21
+     */
+    default void shutdownAsync(long timeout, TimeUnit timeUnit) {
+        new Thread(()->shutdown(timeout, timeUnit)).start();
+    }
+
+    /**
+     * 添加要处理的业务数据
+     *
      * @param t 存储业务数据的bean
-     * @return  
-     * @author fenghuaigang 
-     * @date 2020/4/14 
+     * @return
+     * @methodName addContext
+     * @author fenghuaigang
+     * @date 2020/4/14
      */
     Actuator addContext(T t);
 
-    /** 
-     *  添加回调方法
-     * @methodName addCallBack       
+    /**
+     * 添加回调方法
+     *
      * @param callbacks 实现callback的实例类
      * @return
-     * @author fenghuaigang 
-     * @date 2020/4/14 
+     * @methodName addCallBack
+     * @author fenghuaigang
+     * @date 2020/4/14
      */
     Actuator addCallBack(Callback<T>... callbacks);
 
-    /** 
-     *  添加业务步骤
-     * @methodName addNextHandlers       
+    /**
+     * 添加业务步骤
+     *
      * @param jobHandlers 引擎任务处理实现类
-     * @return  
-     * @author fenghuaigang 
-     * @date 2020/4/14 
+     * @return
+     * @methodName addNextHandlers
+     * @author fenghuaigang
+     * @date 2020/4/14
      */
     Actuator addNextHandlers(JobHandler<T>... jobHandlers);
 
-    /** 
-     *  添加异常处理
-     * @methodName addExceptionHandler       
+    /**
+     * 添加异常处理
+     *
      * @param exceptionHandler
      * @return
-     * @author fenghuaigang 
-     * @date 2020/4/16 
+     * @methodName addExceptionHandler
+     * @author fenghuaigang
+     * @date 2020/4/16
      */
     Actuator addExceptionHandler(ExceptionHandler<T> exceptionHandler);
 }
