@@ -65,7 +65,7 @@ public abstract class AbstractJobHandler<T> implements JobHandler<T>{
      * @date 2020/2/14
      */
     protected void logEnd(EngineLog engineLog){
-        engineLog.logNoBr("<END:{}>",getHandlerName());
+        engineLog.log("<END:{}>",getHandlerName());
         engineLog.flush();
     }
 
