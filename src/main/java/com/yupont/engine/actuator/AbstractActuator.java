@@ -10,6 +10,7 @@ import com.lmax.disruptor.dsl.EventHandlerGroup;
 import com.lmax.disruptor.dsl.ProducerType;
 import com.yupont.engine.callback.Callback;
 import com.yupont.engine.env.ThreadContext;
+import com.yupont.engine.exception.EngineExceptionHandler;
 import com.yupont.engine.handler.JobHandler;
 import com.yupont.engine.handler.ReleaseHandler;
 import lombok.extern.slf4j.Slf4j;
@@ -84,6 +85,8 @@ public abstract class AbstractActuator<T> implements Actuator<T> {
         }
         if (exceptionHandler != null) {
             disruptor.setDefaultExceptionHandler(exceptionHandler);
+        }else{
+            disruptor.setDefaultExceptionHandler(new EngineExceptionHandler<>());
         }
         //释放资源
         tEventHandlerGroup.then(new ReleaseHandler<>());
